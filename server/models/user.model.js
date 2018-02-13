@@ -1,39 +1,36 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-
 const userSchema = new Schema({
-  first_name: {
-    type: String,
-    required: true
+  firstName: { 
+  	type: String, 
+  	required: true 
   },
-  last_name: {
-    type: String,
-    required: true
+  lastName: { 
+  	type: String, 
+  	required: true 
   },
-  password: {
-    type: String,
-    required: true
+  mailUPS: { 
+  	type: String,
+     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+  	required: true 
   },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-   // validate: [validateEmail, 'Please fill a valid email address'],
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+  mailPerso: { 
+  	type: String,
+     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+  	required: true 
   },
-  car: {
-    type: [{
-      type: String,
-      enum: ['small', 'large', 'meduim']
-    }],
-    default: ['meduim']
+  points: { 
+  	type: Number, 
+  	required: true,
+  	default: 0 
   },
-  created_date: {
-    type: Date,
-    default: Date.now
+  car:[{type: Schema.Types.ObjectId, ref:'Car'}]
+  dateCreated: { 
+  	type: 'Date', 
+  	default: Date.now, 
+  	required: true 
   },
 });
-
 
 export default mongoose.model('User', userSchema);
